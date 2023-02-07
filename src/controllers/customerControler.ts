@@ -3,34 +3,40 @@ import { customerService } from "../services/customerService";
 
 export class customerControler {
 
-    public createCustomer = async (user: createCustomer) => {
-        console.log("controller.ts")
-        // const errors = []
-        // if(!user.userId){
-        //     errors.push("missing userId")
-        // }
-        // if(!user.userDetails){
-        //     errors.push("missing userDetails object");
-        //     throw new Error(errors.join("\n"));
-        // }
-
-        // const requiredBody: any[] = ["name","email","emailVerified","picture"]
+    public createCustomer = async (customer: createCustomer) => {
+        const errors: string[] = [];
+        const requiredBody: string[] = ["customer_name","email","picture"];
         // for(const item of requiredBody){
-        //     if(!requiredBody[item]){
+        //     if(!customer[item]){
         //         errors.push(item);
         //     }
         // }
-
-        // if(errors.length > 0){
-        //     throw new Error(errors.join("\n"));
-        // }
+        if(errors.length > 0){
+            throw new Error(errors.join("\n"));
+        }
 
         try{
-            console.log("constoller try",user)
-            return await customerService.createCustomer(user);
+            return await customerService.createCustomer(customer);
         } catch(error) {
             console.log("error :",error);
             throw (error);
         }
     }
+
+    public getSingleCustomer = async (params:any) => {
+        const errors: string[] = [];
+        if(!params.email){
+            errors.push("Missing email id");
+        }
+        if(errors.length > 0){
+            throw new Error(errors.join("\n"));
+        }
+
+        try{
+            return await customerService.getSingleCustomer(params.email);
+        } catch(error) {
+            console.log("error :",error);
+            throw (error);
+        }
+    }  
 }

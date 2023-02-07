@@ -1,6 +1,5 @@
 export interface createCustomer {
-    customerId: number;
-    customerName: string;
+    customer_name: string;
     email: string;
     picture: string;
 }
